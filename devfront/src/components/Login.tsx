@@ -2,19 +2,20 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import axios from "axios";
 import { LoginInput } from "../utils/types";
 import { useDispatch } from "react-redux";
-import { addUser } from "../utils/redux/userSlice";
+import { addUser } from "../store/userSlice";
 import { useNavigate } from "react-router-dom";
-import { BackendUrl } from "../utils/constant";
+import { BackendUrl } from "../constants/Api";
 
 const Login = () => {
   const [formData, setFormData] = useState<LoginInput>({
     emailId: "",
     password: "",
   });
-
+  const [error, setError] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  
   //   Handling the inputChange
   const handleOnchange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -34,8 +35,10 @@ const Login = () => {
       });
 
       dispatch(addUser(response.data.user));
-      return navigate("/feed");
+
+      return navigate("/");
     } catch (error) {
+      setError(error?.response?.data);
       console.log(error);
     }
 
@@ -56,6 +59,7 @@ const Login = () => {
                 <span className="label-text">Email ID</span>
               </div>
               <input
+                required
                 type="email"
                 name="emailId"
                 className="input input-bordered w-full max-w-xs"
@@ -69,6 +73,7 @@ const Login = () => {
                 <span className="label-text">Password</span>
               </div>
               <input
+                required
                 type="password"
                 name="password"
                 className="input input-bordered w-full max-w-xs"
@@ -77,6 +82,9 @@ const Login = () => {
               />
             </label>
           </div>
+          <p className="text-red-600 text-center">
+            {error || "Something Went Wrong"}
+          </p>
           {/* Login Button */}
           <div className="card-actions justify-center">
             <button onClick={handleSubmit} className="btn btn-primary my-2">
