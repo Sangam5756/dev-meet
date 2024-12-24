@@ -1,17 +1,21 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import axios from "axios";
+import { LoginInput } from "../utils/types";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/redux/userSlice";
+import { useNavigate } from "react-router-dom";
+import { BackendUrl } from "../utils/constant";
 
 const Login = () => {
-  interface formInput {
-    emailId: string;
-    password: string;
-  }
-
-  const [formData, setFormData] = useState<formInput>({
+  const [formData, setFormData] = useState<LoginInput>({
     emailId: "",
     password: "",
   });
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  //   Handling the inputChange
   const handleOnchange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
@@ -21,18 +25,21 @@ const Login = () => {
     }));
   };
 
+  //   Submitting the data
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:5000/login",formData,{withCredentials:true})
+      const response = await axios.post(`${BackendUrl}/login`, formData, {
+        withCredentials: true,
+      });
 
-      console.log(response);
-
+      dispatch(addUser(response.data.user));
+      return navigate("/feed");
     } catch (error) {
       console.log(error);
     }
 
-    console.log("formeData",formData);
+    console.log("formeData", formData);
   };
 
   return (
