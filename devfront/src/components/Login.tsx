@@ -1,9 +1,9 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import axios from "axios";
 import { LoginInput } from "../utils/types";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../store/userSlice";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { BackendUrl } from "../constants/Api";
 
 const Login = () => {
@@ -14,8 +14,9 @@ const Login = () => {
   const [error, setError] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const user = useSelector((state) => state.user);
+  const params = useLocation();
 
-  
   //   Handling the inputChange
   const handleOnchange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -41,9 +42,15 @@ const Login = () => {
       setError(error?.response?.data);
       console.log(error);
     }
-
-    console.log("formeData", formData);
   };
+
+  // when the path is login and user is login so navigate him to home page
+
+  useEffect(() => {
+    if (params?.pathname === "/login" && user) {
+      navigate("/");
+    }
+  }, [user]);
 
   return (
     <div className="flex justify-center my-10">
