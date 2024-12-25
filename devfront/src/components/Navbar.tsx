@@ -3,9 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { BackendUrl } from "../constants/Api";
 import { removeUser } from "../store/userSlice";
+import { removeFeed } from "../store/feedSlice";
+import { removeConnections } from "../store/connectionsSlice";
+import { removeRequest } from "../store/requestSlice";
 
 const Navbar = () => {
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state?.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -15,8 +18,13 @@ const Navbar = () => {
         withCredentials: true,
       });
       dispatch(removeUser());
+      dispatch(removeFeed());
+      dispatch(removeConnections());
+      dispatch(removeRequest());
       navigate("/login");
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -63,6 +71,9 @@ const Navbar = () => {
               </li>
               <li>
                 <Link to={"/connections"}>connections</Link>
+              </li>
+              <li>
+                <Link to={"/requests"}>requests</Link>
               </li>
               <li onClick={Handlelogout}>
                 <a>Logout</a>
