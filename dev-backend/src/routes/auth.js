@@ -30,6 +30,7 @@ authRouter.post("/signup", async (req, res) => {
   }
 });
 
+
 authRouter.post("/login", async (req, res) => {
   try {
     const { emailId, password } = req.body;
@@ -62,7 +63,7 @@ authRouter.post("/login", async (req, res) => {
       throw new Error("Invalid creadential");
     }
   } catch (error) {
-    res.status(400).send("ERROR:" + error.message);
+    res.status(400).send(error.message);
   }
 });
 

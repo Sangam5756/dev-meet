@@ -28,11 +28,12 @@ profileRouter.patch("/profile/edit", authUser, async (req, res) => {
         (key) => (loggedInuser[key] = req.body[key])
       );
 
-      await loggedInuser.save();
-      res.send("profile edit successfull" + loggedInuser.firstName);
+    const user =  await loggedInuser.save();
+      res.send({message:"profile edited Successfully " + loggedInuser.firstName,user:user});
     }
   } catch (error) {
-    res.status(404).send("error" + error.message);
+    console.log(error);
+    res.status(404).send(error.message);
   }
 });
 
