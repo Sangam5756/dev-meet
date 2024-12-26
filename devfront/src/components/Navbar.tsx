@@ -6,9 +6,11 @@ import { removeUser } from "../store/userSlice";
 import { removeFeed } from "../store/feedSlice";
 import { removeConnections } from "../store/connectionsSlice";
 import { removeRequests } from "../store/requestSlice";
+import { RootState } from "../store/store";
 
 const Navbar = () => {
-  const user = useSelector((state) => state?.user);
+  const user = useSelector((state:RootState) => state.user);
+      
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -17,11 +19,13 @@ const Navbar = () => {
       const res = await axios.get(BackendUrl + "/logout", {
         withCredentials: true,
       });
-      dispatch(removeUser());
+      dispatch(removeUser(null));
       dispatch(removeFeed());
       dispatch(removeConnections());
       dispatch(removeRequests());
+      console.log(res.data)
       navigate("/login");
+
     } catch (error) {
       console.log(error);
     }
@@ -45,6 +49,7 @@ const Navbar = () => {
         {user && (
           <div className="dropdown dropdown-end ">
             <div className="flex items-center">
+              {/* @ts-ignore */}
               <p className="px-4">Welcome, {user?.firstName}</p>
               <div
                 tabIndex={0}
@@ -52,10 +57,8 @@ const Navbar = () => {
                 className="btn btn-ghost btn-circle avatar"
               >
                 <div className="w-10 rounded-full">
-                  <img
-                    alt="Tailwind CSS Navbar component"
-                    src={user?.photoUrl}
-                  />
+                  {/* @ts-ignore */}
+                  <img  alt="Tailwind CSS Navbar component" src={user?.photoUrl}/>
                 </div>
               </div>
             </div>

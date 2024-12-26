@@ -57,7 +57,7 @@ const Requests = () => {
   return (
     <div className="flex items-center flex-col my-10 px-5 lg:px-0">
       <h1 className="text-3xl font-bold">Connection Requests</h1>
-
+      {/* @ts-ignore */}
       {requests?.map((user: ConnectionRequest) => {
         return (
           <div

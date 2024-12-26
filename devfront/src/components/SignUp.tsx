@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { SigninInput } from "../utils/types";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -20,7 +20,7 @@ const SignUp = () => {
   const handleOnchange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e:FormEvent) => {
     setError("");
     if(formData.emailId ==="" || formData.password ==="" || formData.firstName==="" || formData.lastName ==="") {
       setError("Email and Password & firstName & lastName is Required");
@@ -39,7 +39,7 @@ const SignUp = () => {
           dispatch(addUser(response?.data?.data))
         navigate("/profile");
       }
-    } catch (error) {
+    } catch (error:any) {
       setError(error?.response?.data);
     }
 

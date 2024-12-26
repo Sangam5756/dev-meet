@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { addFeed } from "../store/feedSlice";
 import { useEffect, useState } from "react";
 import UserCard from "./UserCard";
+import { User } from "../utils/types";
 
 
 
@@ -11,7 +12,7 @@ import UserCard from "./UserCard";
 const Feed = () => {
   const dispatch = useDispatch();
   // const feed = useSelector((state) => state?.feed);
-  const [feed,setFeed] = useState(null);
+  const [feed,setFeed] = useState<User[]>([]);
   const getFeed = async () => {
     if(feed !== null) return;
     try {
@@ -26,7 +27,7 @@ const Feed = () => {
     }
   };
 
-  const changeFeed = (userId) => {
+  const changeFeed = (userId:string):void => {
     const newFeed = feed?.filter((user) => user._id !== userId);
     setFeed(newFeed);  // Update state with the new feed
   };
@@ -44,7 +45,7 @@ const Feed = () => {
 
   return (
     <div className="flex justify-center my-10">
-      { feed &&  <UserCard user={feed[0]} changeFeed ={changeFeed} />}
+      { feed &&  <UserCard user={feed[0]} changeFeed={changeFeed} />}
     </div>
   );
 };

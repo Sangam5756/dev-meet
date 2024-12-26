@@ -1,17 +1,25 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { User } from "../utils/types";
+
+type ConnectionState = User[];
+
+const initialState:ConnectionState =[];
+
+
+
 
 const requestSlice = createSlice({
   name: "request",
-  initialState: [],
+  initialState,
   reducers: {
-    addRequest: (state, action) => action.payload,
-    removeRequests: (state,action) => {
+    addRequest: (_state, action:PayloadAction<ConnectionState>) => action.payload,
+    removeRequests: () => {
       return [];
     },
-    deleteRequest: (state, action) => {
+    deleteRequest: (state, action:PayloadAction<string>) => {
       // Return a new array without the request that matches the provided _id
       const newArray =state.filter((r) => r._id !== action.payload);
-      console.log(newArray)
+      
       return newArray;
     },
 

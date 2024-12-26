@@ -6,6 +6,7 @@ import { addUser } from "../store/userSlice";
 import { Link, useNavigate } from "react-router-dom";
 import { BackendUrl } from "../constants/Api";
 import { toast } from "react-toastify";
+import { RootState } from "../store/store";
 
 const Login = () => {
   const [formData, setFormData] = useState<LoginInput>({
@@ -15,7 +16,7 @@ const Login = () => {
   const [error, setError] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state:RootState) => state.user);
 
   //   Handling the inputChange
   const handleOnchange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -43,7 +44,7 @@ const Login = () => {
       dispatch(addUser(response.data.user));
       toast.success(response?.data?.message);
       return navigate("/");
-    } catch (error) {
+    } catch (error:any) {
       setError(error?.response?.data);
       toast.error(error?.response?.data);
       console.log(error);
@@ -51,6 +52,7 @@ const Login = () => {
   };
 
   useEffect(()=>{
+    // @ts-ignore
     if(user?._id){
       navigate("/")
     }

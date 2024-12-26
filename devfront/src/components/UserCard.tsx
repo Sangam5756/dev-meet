@@ -2,8 +2,14 @@ import axios from "axios";
 import { BackendUrl } from "../constants/Api";
 import { useDispatch } from "react-redux";
 import { removeUserFeed } from "../store/feedSlice";
+import { User } from "../utils/types";
 
-const UserCard = ({ user,changeFeed }) => {
+interface UserCardProps {
+  user: User;
+  changeFeed: (userId: string) => void;
+}
+
+const UserCard = ({ user,changeFeed }:UserCardProps) => {
   // const { photoUrl, firstName, gender, lastName, age, about } = user;
   const dispatch = useDispatch();
   const handleSendRequest = async (status:string, userId:string) => {

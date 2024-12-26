@@ -8,8 +8,9 @@ import { RootState } from "../store/store";
 const Connections = () => {
   const dispatch = useDispatch();
   const connections = useSelector((state:RootState) => state?.connections);
+
   const fetchConnections = async () => {
-      if(connections.length >0) return;
+      if(connections.length > 0) return;
     try {
       const res = await axios.get(BackendUrl + "/user/connections", {
         withCredentials: true,
@@ -27,7 +28,7 @@ const Connections = () => {
   }, []);
 
   if (!connections) return;
-  if (connections.count === 0 || connections.length === 0) {
+  if (connections.length === 0) {
     return <h1>No Connections Found</h1>;
   }
 
@@ -35,7 +36,7 @@ const Connections = () => {
     <div className="flex items-center flex-col my-10 px-5 lg:px-0">
       <h1 className="text-3xl font-bold">Connections</h1>
 
-      {connections?.map((user) => {
+      {connections?.map((user:any) => {
         return (
           <div
             key={user?._id}

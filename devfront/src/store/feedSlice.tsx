@@ -1,12 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { User } from "../utils/types";
 
+type FeedState = User[]
+const initialState:FeedState=[]
 const feedSlice = createSlice({
   name: "feed",
-  initialState: null,
+  initialState,
   reducers: {
-    addFeed: (state, action) => action.payload,
-    removeFeed: (state, action) => {
-      return null;
+    addFeed: (_state, action) => action.payload,
+    removeFeed: () => {
+      return [];
     },
     removeUserFeed: (state, action) => {
       const newArray = state?.filter((r) => r._id !== action.payload);

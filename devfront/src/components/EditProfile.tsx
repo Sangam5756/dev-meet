@@ -5,16 +5,23 @@ import { BackendUrl } from "../constants/Api";
 import { useDispatch } from "react-redux";
 import { addUser } from "../store/userSlice";
 import { toast } from "react-toastify";
+import { User } from "../utils/types";
 
-const EditProfile = ({ user }) => {
+interface editProfileProps {
+  user:User
+}
+
+const EditProfile = ({ user }:editProfileProps) => {
   
   const [formData, setFormData] = useState({
     firstName: user.firstName || "",
     lastName: user.lastName || "",
     photoUrl: user.photoUrl || "",
-    age: user.age || "",
+    age: user.age || 0,
     gender: user.gender || "",
     about: user.about || "",
+    _id:user._id || "",
+    skills:user.skills || [],
   });
   const dispatch = useDispatch();
   const [error, setError] = useState("");
@@ -43,7 +50,7 @@ const EditProfile = ({ user }) => {
       dispatch(addUser(res.data.user));
 
       
-    } catch (error) {
+    } catch (error:any) {
       console.log(error)
       setError(error?.response?.data);
       toast.error(error?.response?.data)
@@ -168,7 +175,7 @@ const EditProfile = ({ user }) => {
         </div>
       </div>
 
-      <UserCard user={formData} />
+      <UserCard user={formData} changeFeed={()=> null} />
     </div>
   );
 };
