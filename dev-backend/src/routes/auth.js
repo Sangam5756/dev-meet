@@ -7,7 +7,7 @@ const authRouter = express.Router();
 
 authRouter.post("/signup", async (req, res) => {
   try {
-    console.log(req.body)
+    console.log(req.body);
     // validate req body
     validateSignupData(req);
 
@@ -23,19 +23,23 @@ authRouter.post("/signup", async (req, res) => {
       password: passwordHash,
     });
 
-     const saveduser =await user.save();
-     const token = await saveduser.getJWT();
-// storing token inside the cookies
-     res.cookie("token", token,tokenOption);
+    const saveduser = await user.save();
+    const token = await saveduser.getJWT();
+    const tokenOption = {
+      httpOnly: true,
+      secure: true,
+      expires: new Date(Date.now() + 1 * 3600000),
+      samesite: none,
+    };
 
-   
+    // storing token inside the cookies
+    res.cookie("token", token, tokenOption);
 
-    res.status(200).json({message:"Signup Successfull",data:saveduser});
+    res.status(200).json({ message: "Signup Successfull", data: saveduser });
   } catch (error) {
     res.status(400).send("ERROR:" + error.message);
   }
 });
-
 
 authRouter.post("/login", async (req, res) => {
   try {
@@ -58,21 +62,18 @@ authRouter.post("/login", async (req, res) => {
     if (isPasswordValid) {
       // generate token
       const token = await user.getJWT();
-      const tokenOption ={
-        httpOnly:true,
-        secure:true,
+      const tokenOption = {
+        httpOnly: true,
+        secure: true,
         expires: new Date(Date.now() + 1 * 3600000),
-        
-      }
-       
+        samesite: none,
+      };
 
       // storing token inside the cookies
-      res.cookie("token", token,tokenOption)
-      
+      res.cookie("token", token, tokenOption);
 
-   
       // sending response as login success
-      res.json({message:"login successfull",user:user});
+      res.json({ message: "login successfull", user: user });
     } else {
       throw new Error("Invalid creadential");
     }
