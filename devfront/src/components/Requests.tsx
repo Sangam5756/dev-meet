@@ -4,12 +4,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { addRequest, deleteRequest } from "../store/requestSlice";
 import { addNewConnection } from "../store/connectionsSlice";
+import { toast } from "react-toastify";
 
 const Requests = () => {
   const dispatch = useDispatch();
   const requests = useSelector((state) => state?.requests);
-  
-  const reviewRequest = async (status: string, id: string,user:any) => {
+  console.log(requests);
+
+  const reviewRequest = async (status: string, id: string, user: any) => {
     console.log(status, id);
     try {
       const response = await axios.post(
@@ -17,16 +19,19 @@ const Requests = () => {
         {},
         { withCredentials: true }
       );
-      console.log("i am user ind requesst",user)
-      dispatch(addNewConnection(user))
+      console.log("i am user ind requesst", user);
       dispatch(deleteRequest(id));
-      
+      dispatch(addNewConnection(user));
+
       console.log(response);
-    } catch (error) {}
+    } catch (error) {
+      toast(error?.response?.data?.message)
+      console.log(error)
+    }
   };
 
   const fetchRequests = async () => {
-    if (requests) return;
+    if (requests.length > 0) return;
     try {
       const response = await axios.get(BackendUrl + "/user/requests", {
         withCredentials: true,
@@ -72,17 +77,23 @@ const Requests = () => {
                   user?.fromUserId?.gender &&
                   user?.fromUserId?.age + ", " + user?.fromUserId?.gender}
               </p>
-              <p className="">{user?.fromUserId?.about}</p>
+              <p className=" text-ellipsis line-clamp-2">
+                {user?.fromUserId?.about}
+              </p>
             </div>
             <div className="flex flex-wrap gap-2">
               <button
-                onClick={() => reviewRequest("accepted", user?._id,user?.fromUserId)}
+                onClick={() =>
+                  reviewRequest("accepted", user?._id, user?.fromUserId)
+                }
                 className="px-2 bg-pink-600 text-slate-200 rounded-md lg:btn lg:btn-secondary"
               >
                 Accept
               </button>
               <button
-                onClick={() => reviewRequest("rejected", user?._id,user?.fromUserId)}
+                onClick={() =>
+                  reviewRequest("rejected", user?._id, user?.fromUserId)
+                }
                 className="px-2 bg-blue-800 text-slate-100 rounded-md lg:btn lg:btn-primary"
               >
                 Reject

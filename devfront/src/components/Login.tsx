@@ -3,8 +3,9 @@ import axios from "axios";
 import { LoginInput } from "../utils/types";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../store/userSlice";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BackendUrl } from "../constants/Api";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [formData, setFormData] = useState<LoginInput>({
@@ -28,6 +29,11 @@ const Login = () => {
 
   //   Submitting the data
   const handleSubmit = async (e: FormEvent) => {
+    setError("")
+    if(formData.emailId ==="" || formData.password ==="") {
+      setError("Email and Password Required");
+      return toast.warning("Email and Password Required");
+    }
     e.preventDefault();
     try {
       const response = await axios.post(`${BackendUrl}/login`, formData, {
@@ -35,13 +41,20 @@ const Login = () => {
       });
 
       dispatch(addUser(response.data.user));
-
+      toast.success(response?.data?.message);
       return navigate("/");
     } catch (error) {
       setError(error?.response?.data);
+      toast.error(error?.response?.data);
       console.log(error);
     }
   };
+
+  useEffect(()=>{
+    if(user?._id){
+      navigate("/")
+    }
+  })
 
   return (
     <div className="flex justify-center my-10">
@@ -81,7 +94,7 @@ const Login = () => {
             </label>
           </div>
           <p className="text-red-600 text-center">
-            {error || "Something Went Wrong"}
+            {error}
           </p>
           {/* Login Button */}
           <div className="card-actions justify-center">

@@ -8,7 +8,7 @@ const Connections = () => {
   const dispatch = useDispatch();
   const connections = useSelector((state) => state?.connections);
   const fetchConnections = async () => {
-      if(connections) return;
+      if(connections.length >0) return;
     try {
       const res = await axios.get(BackendUrl + "/user/connections", {
         withCredentials: true,
@@ -22,7 +22,6 @@ const Connections = () => {
 
   useEffect(() => {
       fetchConnections()
-
    
   }, []);
 
@@ -35,7 +34,7 @@ const Connections = () => {
     <div className="flex items-center flex-col my-10 px-5 lg:px-0">
       <h1 className="text-3xl font-bold">Connections</h1>
 
-      {connections?.map((user, key) => {
+      {connections?.map((user) => {
         return (
           <div
             key={user?._id}

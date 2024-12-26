@@ -1,13 +1,12 @@
 import Navbar from "./Navbar";
-import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import Footer from "./Footer";
 import { useEffect } from "react";
 import { useFetchUser } from "../hooks/useFetchUser";
 import { useSelector } from "react-redux";
 
 const Body = () => {
-  const params = useLocation();
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state?.user);
 
   const fetchUser = useFetchUser();
   const navigate = useNavigate();
@@ -15,7 +14,7 @@ const Body = () => {
   useEffect(() => {
     fetchUser();
 
-    if (!user) {
+    if (!user?._id) {
       navigate("/login");
     }
   }, []);

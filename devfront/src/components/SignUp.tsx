@@ -22,6 +22,10 @@ const SignUp = () => {
   };
   const handleSubmit = async (e) => {
     setError("");
+    if(formData.emailId ==="" || formData.password ==="" || formData.firstName==="" || formData.lastName ==="") {
+      setError("Email and Password & firstName & lastName is Required");
+      return toast.warning("Email and Password & firstName & lastName is Required");
+    }
     e.preventDefault();
     try {
       const response = await axios.post(
