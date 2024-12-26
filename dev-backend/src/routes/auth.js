@@ -27,9 +27,17 @@ authRouter.post("/signup", async (req, res) => {
      const token = await saveduser.getJWT();
 
      // storing token inside the cookies
-     res.cookie("token", token, {
-       expires: new Date(Date.now() + 1 * 3600000),
-     });
+    //  res.cookie("token", token, {
+    //    expires: new Date(Date.now() + 1 * 3600000),
+    //  });
+
+    res.cookie('token', token, {
+      httpOnly: true,             // Prevent client-side JavaScript access
+      sameSite: 'None',    
+      secure:true,       // Allow the cookie to be sent with cross-origin requests
+      expires: new Date(Date.now() + 1 * 3600000),  // Set cookie expiration time (1 hour)
+      domain: '.onrender.com',    // Use the domain for your backend to allow sharing across subdomains (if applicable)
+    });
 
     res.status(200).json({message:"Signup Successfull",data:saveduser});
   } catch (error) {
