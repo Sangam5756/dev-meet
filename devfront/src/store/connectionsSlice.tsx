@@ -1,15 +1,23 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { ConnectionRequest} from "../utils/types";
+
+type connectionState = ConnectionRequest[]
+
+const initialState:connectionState=[]
+
+
 
 const connectionsSlice = createSlice({
   name: "connections",
-  initialState: [],
+  initialState,
   reducers: {
-    addConnections: (state, action) => action.payload,
-    addNewConnection: (state, action) => {
+    addConnections: (_state,action:PayloadAction<connectionState>) => action.payload,
+
+    addNewConnection: (state, action:PayloadAction<ConnectionRequest>) => {
       return [...state, action.payload];
     },
     // addNewConnection:(state,action)=> [...state, action.payload]
-    removeConnections: (state, action) => {
+    removeConnections: () => {
       return [];
     },
   },

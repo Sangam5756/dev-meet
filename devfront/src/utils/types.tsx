@@ -9,11 +9,22 @@ export interface SigninInput {
   lastName: string;
 }
 
-export interface Connection {
-  fromUserId: string; // ObjectId stored as a string
-  toUserId: string;   // ObjectId stored as a string
-  status: "interested" | "ignored" | "accepted" | "rejected"; // Valid statuses
-  createdAt: string;  // Timestamps
-  updatedAt: string;  // Timestamps
+export interface ConnectionRequest {
+  _id: string;
+  fromUserId: User; // Embedded User object
+  toUserId: string; // Reference to another user
+  status: "interested" | "ignored" | "accepted" | "rejected"; // Enum for status
+  
 }
 
+
+export interface User {
+  _id: string;
+  firstName: string;
+  lastName: string;
+  photoUrl: string;
+  about: string;
+  skills: string[]; // Array of strings
+  age: number;
+  gender: "male" | "female" | "other"; // Gender can be limited to specific values
+}

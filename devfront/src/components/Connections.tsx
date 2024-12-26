@@ -3,10 +3,11 @@ import { useEffect } from "react";
 import { BackendUrl } from "../constants/Api";
 import { useDispatch, useSelector } from "react-redux";
 import { addConnections } from "../store/connectionsSlice";
+import { RootState } from "../store/store";
 
 const Connections = () => {
   const dispatch = useDispatch();
-  const connections = useSelector((state) => state?.connections);
+  const connections = useSelector((state:RootState) => state?.connections);
   const fetchConnections = async () => {
       if(connections.length >0) return;
     try {

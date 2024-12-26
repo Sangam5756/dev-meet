@@ -5,28 +5,31 @@ import { useEffect } from "react";
 import { addRequest, deleteRequest } from "../store/requestSlice";
 import { addNewConnection } from "../store/connectionsSlice";
 import { toast } from "react-toastify";
+import { RootState } from "../store/store";
+import { ConnectionRequest } from "../utils/types";
 
 const Requests = () => {
   const dispatch = useDispatch();
-  const requests = useSelector((state) => state?.requests);
+  const requests = useSelector((state: RootState) => state?.requests);
   console.log(requests);
 
   const reviewRequest = async (status: string, id: string, user: any) => {
-    console.log(status, id);
+    console.log(status, id, user);
     try {
       const response = await axios.post(
         BackendUrl + `/request/review/${status}/${id}`,
         {},
         { withCredentials: true }
       );
+      console.log("inside the request.tsx", response);
       console.log("i am user ind requesst", user);
       dispatch(deleteRequest(id));
       dispatch(addNewConnection(user));
 
       console.log(response);
-    } catch (error) {
-      toast(error?.response?.data?.message)
-      console.log(error)
+    } catch (error: any) {
+      toast(error?.response?.data?.message);
+      console.log(error);
     }
   };
 
@@ -55,7 +58,7 @@ const Requests = () => {
     <div className="flex items-center flex-col my-10 px-5 lg:px-0">
       <h1 className="text-3xl font-bold">Connection Requests</h1>
 
-      {requests?.map((user, key) => {
+      {requests?.map((user: ConnectionRequest) => {
         return (
           <div
             key={user?.fromUserId?._id}
