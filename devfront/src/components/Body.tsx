@@ -16,6 +16,7 @@ const Body = () => {
     // @ts-ignore
     if (!user?._id) {
       navigate("/login");
+      
     }
   }, []);
 

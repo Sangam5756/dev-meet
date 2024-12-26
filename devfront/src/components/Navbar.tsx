@@ -7,6 +7,7 @@ import { removeFeed } from "../store/feedSlice";
 import { removeConnections } from "../store/connectionsSlice";
 import { removeRequests } from "../store/requestSlice";
 import { RootState } from "../store/store";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
   const user = useSelector((state:RootState) => state.user);
@@ -23,7 +24,7 @@ const Navbar = () => {
       dispatch(removeFeed());
       dispatch(removeConnections());
       dispatch(removeRequests());
-      console.log(res.data)
+      toast.success(res?.data)
       navigate("/login");
 
     } catch (error) {

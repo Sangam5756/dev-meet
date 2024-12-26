@@ -1,42 +1,49 @@
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect} from "react";
 import { BackendUrl } from "../constants/Api";
 import { useDispatch, useSelector } from "react-redux";
 import { addConnections } from "../store/connectionsSlice";
 import { RootState } from "../store/store";
 
+
 const Connections = () => {
   const dispatch = useDispatch();
-  const connections = useSelector((state:RootState) => state?.connections);
-
+  const connections = useSelector((state: RootState) => state?.connections);
+  
   const fetchConnections = async () => {
-      if(connections.length > 0) return;
+    if (connections.length > 0) return;
     try {
       const res = await axios.get(BackendUrl + "/user/connections", {
         withCredentials: true,
       });
 
       dispatch(addConnections(res?.data?.data));
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-      fetchConnections()
-   
+    fetchConnections();
   }, []);
 
+  
   if (!connections) return;
   if (connections.length === 0) {
-    return <h1>No Connections Found</h1>;
+    return (
+      <h1 className="text-center text-2xl font-bold my-10">
+        No Connections Found
+      </h1>
+    );
   }
 
+  
   return (
+    
     <div className="flex items-center flex-col my-10 px-5 lg:px-0">
       <h1 className="text-3xl font-bold">Connections</h1>
 
-      {connections?.map((user:any) => {
+      {connections?.map((user: any) => {
         return (
           <div
             key={user?._id}

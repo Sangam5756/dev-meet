@@ -3,6 +3,7 @@ import { BackendUrl } from "../constants/Api";
 import { useDispatch } from "react-redux";
 import { removeUserFeed } from "../store/feedSlice";
 import { User } from "../utils/types";
+import { toast } from "react-toastify";
 
 interface UserCardProps {
   user: User;
@@ -21,6 +22,7 @@ const UserCard = ({ user,changeFeed }:UserCardProps) => {
       );
 
       dispatch(removeUserFeed(userId));
+      toast.success("request sent Successfully")
       changeFeed(userId);
       console.log(response);
     } catch (error) {

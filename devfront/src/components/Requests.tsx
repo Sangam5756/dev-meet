@@ -21,12 +21,11 @@ const Requests = () => {
         {},
         { withCredentials: true }
       );
-      console.log("inside the request.tsx", response);
-      console.log("i am user ind requesst", user);
+      toast.success(response?.data?.message)
       dispatch(deleteRequest(id));
       dispatch(addNewConnection(user));
 
-      console.log(response);
+      
     } catch (error: any) {
       toast(error?.response?.data?.message);
       console.log(error);
