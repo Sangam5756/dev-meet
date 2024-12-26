@@ -93,7 +93,7 @@ userRouter.get("/feed", authUser, async (req, res) => {
       .skip(skip)
       .limit(limit);
 
-    res.send(users);
+    res.json({ user: users, message: "All Feeds" });
   } catch (error) {
     res.status(400).send("ERROR" + error.message);
   }

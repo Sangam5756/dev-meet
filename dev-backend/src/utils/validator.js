@@ -1,7 +1,7 @@
 import validator from "validator";
 
 const validateSignupData = (req) => {
-  const { firstName, lastName, emailId, password } = req.body;
+  const { firstName, lastName, emailId, password } = req.body.formData;
 
   if (!firstName || !lastName) {
     throw new Error("Name is not valid");

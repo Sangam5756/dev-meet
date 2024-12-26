@@ -7,10 +7,11 @@ const authRouter = express.Router();
 
 authRouter.post("/signup", async (req, res) => {
   try {
+    console.log(req.body)
     // validate req body
     validateSignupData(req);
 
-    const { firstName, lastName, emailId, password } = req.body;
+    const { firstName, lastName, emailId, password } = req.body.formData;
 
     // password encryption
     const passwordHash = await bcrypt.hash(password, 10);
@@ -22,9 +23,15 @@ authRouter.post("/signup", async (req, res) => {
       password: passwordHash,
     });
 
-    await user.save();
+     const saveduser =await user.save();
+     const token = await saveduser.getJWT();
 
-    res.status(200).send("Signup SUccessfull");
+     // storing token inside the cookies
+     res.cookie("token", token, {
+       expires: new Date(Date.now() + 1 * 3600000),
+     });
+
+    res.status(200).json({message:"Signup Successfull",data:saveduser});
   } catch (error) {
     res.status(400).send("ERROR:" + error.message);
   }
