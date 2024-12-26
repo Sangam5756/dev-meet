@@ -1,6 +1,26 @@
-const UserCard = ({ user }) => {
-  // const { photoUrl, firstName, gender, lastName, age, about } = user;
+import axios from "axios";
+import { BackendUrl } from "../constants/Api";
+import { useDispatch } from "react-redux";
+import { removeUserFeed } from "../store/feedSlice";
 
+const UserCard = ({ user,changeFeed }) => {
+  // const { photoUrl, firstName, gender, lastName, age, about } = user;
+  const dispatch = useDispatch();
+  const handleSendRequest = async (status:string, userId:string) => {
+    try {
+      const response = await axios.post(
+        BackendUrl + "/request/send/" + status + "/" + userId,
+        {},
+        { withCredentials: true }
+      );
+
+      dispatch(removeUserFeed(userId));
+      changeFeed(userId);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="card bg-base-300 w-96 shadow-xl">
       {/* image url */}
@@ -18,11 +38,15 @@ const UserCard = ({ user }) => {
         {/* First Name and LastName */}
         <h2 className="card-title">{user?.firstName + " " + user?.lastName}</h2>
         {/* Age and Gender */}
-        <div>{user?.age && user?.gender && <p>{user?.age + ", " + user?.gender}</p>} </div>
+        <div>
+          {user?.age && user?.gender && (
+            <p>{user?.age + ", " + user?.gender}</p>
+          )}{" "}
+        </div>
         <p>{user?.about || ""}</p>
         <div className="card-actions  justify-center my-5">
-          <button className="btn btn-primary">Ignore</button>
-          <button className="btn btn-secondary">Send Request</button>
+          <button onClick={()=> handleSendRequest("ignored",user?._id)} className="btn btn-primary">Ignore</button>
+          <button onClick={()=> handleSendRequest("interested",user?._id)} className="btn btn-secondary">Send Request</button>
         </div>
       </div>
     </div>

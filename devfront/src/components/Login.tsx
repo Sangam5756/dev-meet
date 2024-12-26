@@ -3,7 +3,7 @@ import axios from "axios";
 import { LoginInput } from "../utils/types";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../store/userSlice";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { BackendUrl } from "../constants/Api";
 
 const Login = () => {
@@ -15,7 +15,6 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
-  const params = useLocation();
 
   //   Handling the inputChange
   const handleOnchange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -43,14 +42,6 @@ const Login = () => {
       console.log(error);
     }
   };
-
-  // when the path is login and user is login so navigate him to home page
-
-  useEffect(() => {
-    if (params?.pathname === "/login" && user) {
-      navigate("/");
-    }
-  }, [user]);
 
   return (
     <div className="flex justify-center my-10">
@@ -98,6 +89,12 @@ const Login = () => {
               Login
             </button>
           </div>
+          <p>
+            dont't have an Account{" "}
+            <Link className="text-blue-800" to={"/signup"}>
+              Signup
+            </Link>
+          </p>
         </div>
       </div>
     </div>

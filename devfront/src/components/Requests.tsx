@@ -2,13 +2,14 @@ import axios from "axios";
 import { BackendUrl } from "../constants/Api";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { addRequest } from "../store/requestSlice";
+import { addRequest, deleteRequest } from "../store/requestSlice";
+import { addNewConnection } from "../store/connectionsSlice";
 
 const Requests = () => {
   const dispatch = useDispatch();
   const requests = useSelector((state) => state?.requests);
-
-  const reviewRequest = async (status: string, id: string) => {
+  
+  const reviewRequest = async (status: string, id: string,user:any) => {
     console.log(status, id);
     try {
       const response = await axios.post(
@@ -16,7 +17,10 @@ const Requests = () => {
         {},
         { withCredentials: true }
       );
-
+      console.log("i am user ind requesst",user)
+      dispatch(addNewConnection(user))
+      dispatch(deleteRequest(id));
+      
       console.log(response);
     } catch (error) {}
   };
@@ -72,13 +76,13 @@ const Requests = () => {
             </div>
             <div className="flex flex-wrap gap-2">
               <button
-                onClick={() => reviewRequest("accepted", user?._id)}
+                onClick={() => reviewRequest("accepted", user?._id,user?.fromUserId)}
                 className="px-2 bg-pink-600 text-slate-200 rounded-md lg:btn lg:btn-secondary"
               >
                 Accept
               </button>
               <button
-                onClick={() => reviewRequest("rejected", user?._id)}
+                onClick={() => reviewRequest("rejected", user?._id,user?.fromUserId)}
                 className="px-2 bg-blue-800 text-slate-100 rounded-md lg:btn lg:btn-primary"
               >
                 Reject

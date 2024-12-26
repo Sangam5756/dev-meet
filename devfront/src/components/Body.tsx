@@ -15,10 +15,10 @@ const Body = () => {
   useEffect(() => {
     fetchUser();
 
-    if (params?.pathname === "/" && !user) {
+    if (!user) {
       navigate("/login");
     }
-  }, [params.pathname]);
+  }, []);
 
   return (
     <div>

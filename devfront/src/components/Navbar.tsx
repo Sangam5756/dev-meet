@@ -5,7 +5,7 @@ import { BackendUrl } from "../constants/Api";
 import { removeUser } from "../store/userSlice";
 import { removeFeed } from "../store/feedSlice";
 import { removeConnections } from "../store/connectionsSlice";
-import { removeRequest } from "../store/requestSlice";
+import { removeRequests } from "../store/requestSlice";
 
 const Navbar = () => {
   const user = useSelector((state) => state?.user);
@@ -20,7 +20,7 @@ const Navbar = () => {
       dispatch(removeUser());
       dispatch(removeFeed());
       dispatch(removeConnections());
-      dispatch(removeRequest());
+      dispatch(removeRequests());
       navigate("/login");
     } catch (error) {
       console.log(error);

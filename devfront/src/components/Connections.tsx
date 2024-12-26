@@ -6,10 +6,9 @@ import { addConnections } from "../store/connectionsSlice";
 
 const Connections = () => {
   const dispatch = useDispatch();
-  const connections = useSelector((state) => state.connections);
-
+  const connections = useSelector((state) => state?.connections);
   const fetchConnections = async () => {
-    if (connections) return;
+      if(connections) return;
     try {
       const res = await axios.get(BackendUrl + "/user/connections", {
         withCredentials: true,
@@ -22,7 +21,9 @@ const Connections = () => {
   };
 
   useEffect(() => {
-    fetchConnections();
+      fetchConnections()
+
+   
   }, []);
 
   if (!connections) return;
@@ -56,7 +57,6 @@ const Connections = () => {
               </p>
               <p className="">{user?.about}</p>
             </div>
-          
           </div>
         );
       })}
