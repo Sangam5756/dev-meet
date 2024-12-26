@@ -29,8 +29,9 @@ authRouter.post("/signup", async (req, res) => {
       httpOnly: true,
       secure: true,
       expires: new Date(Date.now() + 1 * 3600000),
-      samesite: none,
+      samesite: 'none',
     };
+    
 
     // storing token inside the cookies
     res.cookie("token", token, tokenOption);
@@ -66,7 +67,7 @@ authRouter.post("/login", async (req, res) => {
         httpOnly: true,
         secure: true,
         expires: new Date(Date.now() + 1 * 3600000),
-        samesite: none,
+        samesite: 'none',
       };
 
       // storing token inside the cookies
