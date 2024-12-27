@@ -27,16 +27,14 @@ authRouter.post("/signup", async (req, res) => {
     const token = await saveduser.getJWT();
     const tokenOption = {
       httpOnly: true,
-      secure: true,
-      expires: new Date(Date.now() + 1 * 3600000),
-      samesite: 'none',
+      secure: true, // Set true if using HTTPS
+      sameSite: "None",
     };
-    
 
     // storing token inside the cookies
-    res.cookie("token", token, tokenOption);
+    res.cookie("token", token, tokenOption).json({message: "Signup Successfull", data: saveduser});
 
-    res.status(200).json({ message: "Signup Successfull", data: saveduser });
+    // res.status(200).json();
   } catch (error) {
     res.status(400).send("ERROR:" + error.message);
   }
@@ -65,16 +63,15 @@ authRouter.post("/login", async (req, res) => {
       const token = await user.getJWT();
       const tokenOption = {
         httpOnly: true,
-        secure: true,
-        expires: new Date(Date.now() + 1 * 3600000),
-        samesite: 'none',
+        secure: true, // Set true if using HTTPS
+        sameSite: "None",
       };
 
       // storing token inside the cookies
-      res.cookie("token", token, tokenOption);
+      res.cookie("token", token, tokenOption).json({ message: "login successfull", user: user });
 
       // sending response as login success
-      res.json({ message: "login successfull", user: user });
+      // res.json({ message: "login successfull", user: user });
     } else {
       throw new Error("Invalid creadential");
     }

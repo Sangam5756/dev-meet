@@ -2,11 +2,12 @@ import express from "express";
 import dbConnect from "./config/database.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-
+import { configDotenv } from "dotenv";
 import authRouter from "./routes/auth.js";
 import profileRouter from "./routes/profile.js";
 import requestRouter from "./routes/requests.js";
 import userRouter from "./routes/user.js";
+configDotenv();
 
 const app = express();
 app.use(
