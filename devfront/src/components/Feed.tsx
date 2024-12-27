@@ -1,27 +1,29 @@
 import axios from "axios";
 import { BackendUrl } from "../constants/Api";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addFeed } from "../store/feedSlice";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import UserCard from "./UserCard";
-import { User } from "../utils/types";
+import { RootState } from "../store/store";
 
 
 
 
 const Feed = () => {
   const dispatch = useDispatch();
-  // const feed = useSelector((state) => state?.feed);
-  const [feed,setFeed] = useState<User[]>([]);
+  const feed = useSelector((state:RootState) => state?.feed);
+  // const [feed,setFeed] = useState<User[]>([]);
+  console.log(feed)
   const getFeed = async () => {
-    if(feed !== null) return;
+        if(feed.length !==0) return;
     try {
       const response = await axios.get(BackendUrl + "/feed", {
         withCredentials: true,
       });
+      
       console.log(response);
       dispatch(addFeed(response?.data?.user));
-      setFeed(response?.data?.user)
+      // setFeed(response?.data?.user)
     } catch (error) {
       console.log(error);
     }
@@ -29,12 +31,16 @@ const Feed = () => {
 
   const changeFeed = (userId:string):void => {
     const newFeed = feed?.filter((user) => user._id !== userId);
-    setFeed(newFeed);  // Update state with the new feed
+    // setFeed(newFeed);  // Update state with the new feed
+    dispatch(addFeed(newFeed));
+
   };
 
 
   useEffect(() => {
-    getFeed();
+    
+      getFeed();
+
     
   }, []);
 

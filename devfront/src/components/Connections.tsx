@@ -11,7 +11,7 @@ const Connections = () => {
   const connections = useSelector((state: RootState) => state?.connections);
   
   const fetchConnections = async () => {
-    if (connections.length > 0) return;
+    if (connections.length !== 0) return;
     try {
       const res = await axios.get(BackendUrl + "/user/connections", {
         withCredentials: true,

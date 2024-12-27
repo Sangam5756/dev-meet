@@ -33,7 +33,7 @@ const Requests = () => {
   };
 
   const fetchRequests = async () => {
-    if (requests.length > 0) return;
+    if (requests.length !== 0) return;
     try {
       const response = await axios.get(BackendUrl + "/user/requests", {
         withCredentials: true,

@@ -20,8 +20,8 @@ const EditProfile = ({ user }:editProfileProps) => {
     age: user.age || 0,
     gender: user.gender || "",
     about: user.about || "",
-    _id:user._id || "",
-    skills:user.skills || [],
+    // _id:user._id || "",
+    // skills:user.skills || [],
   });
   const dispatch = useDispatch();
   const [error, setError] = useState("");
@@ -174,7 +174,7 @@ const EditProfile = ({ user }:editProfileProps) => {
           </div>
         </div>
       </div>
-
+      {/* @ts-ignore */}
       <UserCard user={formData} changeFeed={()=> null} />
     </div>
   );

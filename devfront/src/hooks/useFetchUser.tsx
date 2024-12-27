@@ -10,12 +10,13 @@ export const useFetchUser = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state:RootState) => state.user);
-
+  console.log(user)
   // Fetch login User
   
   const fetchUser = async () => {
     // if the user is present dont make api call
-    if (user) return;
+    // @ts-ignore
+    if (user?._d) return;
     
     try {
       const res = await axios.get(BackendUrl + "/profile/view", {
