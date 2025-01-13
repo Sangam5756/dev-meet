@@ -37,3 +37,6 @@ dbConnect()
    
   })
   .catch((err) => console.error("Connection to database failed" + err));
+
+
+  export default app;
