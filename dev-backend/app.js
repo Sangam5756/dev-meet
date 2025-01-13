@@ -26,11 +26,14 @@ app.use("/", profileRouter);
 app.use("/", requestRouter);
 app.use("/", userRouter);
 
+
+
+app.listen(PORT, () => {
+  console.log(`server is listening on port ${PORT}`);
+});
 dbConnect()
   .then(() => {
     console.log("DataBase connection established");
-    app.listen(PORT, () => {
-      console.log(`server is listening on port ${PORT}`);
-    });
+   
   })
   .catch((err) => console.error("Connection to database failed" + err));
