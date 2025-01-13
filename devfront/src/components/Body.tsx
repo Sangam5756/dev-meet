@@ -7,18 +7,18 @@ import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 
 const Body = () => {
-  const user = useSelector((state: RootState) => state?.user);
-  const fetchUser = useFetchUser();
-  const navigate = useNavigate();
+  // const user = useSelector((state: RootState) => state?.user);
+  // const fetchUser = useFetchUser();
+  // const navigate = useNavigate();
 
-  useEffect(() => {
-    fetchUser();
-    // @ts-ignore
-    if (!user?._id) {
-      navigate("/login");
+  // useEffect(() => {
+  //   fetchUser();
+  //   // @ts-ignore
+  //   if (!user?._id) {
+  //     navigate("/login");
       
-    }
-  }, []);
+  //   }
+  // }, []);
 
   return (
     <div>

@@ -11,7 +11,7 @@ export const useFetchUser = () => {
   const navigate = useNavigate();
   const user = useSelector((state:RootState) => state.user);
   console.log(user)
-  // Fetch login User
+  
   
   const fetchUser = async () => {
     // if the user is present dont make api call
