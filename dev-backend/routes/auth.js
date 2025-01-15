@@ -84,7 +84,7 @@ authRouter.post("/login", async (req, res) => {
   }
 });
 
-authRouter.get("/logout", (req, res) => {
+authRouter.post("/logout", (req, res) => {
   try {
     const tokenOption = {
       httpOnly: true,
@@ -95,7 +95,7 @@ authRouter.get("/logout", (req, res) => {
     // storing token inside the cookies
     res
       .cookie("token", token, tokenOption)
-      .send("logout successfull");
+      .json({message:"logout successfull"});
   } catch (error) {
     res.status(404).send(error.message);
   }
