@@ -32,7 +32,9 @@ authRouter.post("/signup", async (req, res) => {
     };
 
     // storing token inside the cookies
-    res.cookie("token", token, tokenOption).json({message: "Signup Successfull", data: saveduser});
+    res
+      .cookie("token", token, tokenOption)
+      .json({ message: "Signup Successfull", data: saveduser });
 
     // res.status(200).json();
   } catch (error) {
@@ -68,7 +70,9 @@ authRouter.post("/login", async (req, res) => {
       };
 
       // storing token inside the cookies
-      res.cookie("token", token, tokenOption).json({ message: "login successfull", user: user });
+      res
+        .cookie("token", token, tokenOption)
+        .json({ message: "login successfull", user: user });
 
       // sending response as login success
       // res.json({ message: "login successfull", user: user });
@@ -82,8 +86,14 @@ authRouter.post("/login", async (req, res) => {
 
 authRouter.get("/logout", (req, res) => {
   try {
+    const tokenOption = {
+      httpOnly: true,
+      secure: true, // Set true if using HTTPS
+      sameSite: "None",
+    };
+
     res
-      .cookie("token", null, {
+      .cookie("token", null, tokenOption, {
         expires: new Date(Date.now()),
       })
       .send("logout successfull");
