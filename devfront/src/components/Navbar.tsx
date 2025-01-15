@@ -10,23 +10,26 @@ import { RootState } from "../store/store";
 import { toast } from "react-toastify";
 
 const Navbar = () => {
-  const user = useSelector((state:RootState) => state.user);
-      
+  const user = useSelector((state: RootState) => state.user);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const Handlelogout = async () => {
     try {
-      const res = await axios.get(BackendUrl + "/logout", {
-        withCredentials: true,
-      });
+      const res = await axios.post(
+        BackendUrl + "/logout",
+        {},
+        {
+          withCredentials: true,
+        }
+      );
       dispatch(removeUser(null));
       dispatch(removeFeed());
       dispatch(removeConnections());
       dispatch(removeRequests());
-      toast.success(res?.data)
+      toast.success(res?.data);
       navigate("/login");
-
     } catch (error) {
       console.log(error);
     }
@@ -59,7 +62,10 @@ const Navbar = () => {
               >
                 <div className="w-10 rounded-full">
                   {/* @ts-ignore */}
-                  <img  alt="Tailwind CSS Navbar component" src={user?.photoUrl}/>
+                  <img
+                    alt="Tailwind CSS Navbar component"
+                    src={user?.photoUrl}
+                  />
                 </div>
               </div>
             </div>

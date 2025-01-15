@@ -10,7 +10,7 @@ const Body = () => {
   const user = useSelector((state: RootState) => state?.user);
   const fetchUser = useFetchUser();
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(true); // State for loading
+  const [loading, setLoading] = useState(false); // State for loading
 
   useEffect(() => {
     // Fetch user data when component mounts
