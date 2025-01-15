@@ -92,11 +92,7 @@ authRouter.get("/logout", (req, res) => {
       sameSite: "None",
     };
 
-    res
-      .cookie("token", null, tokenOption, {
-        expires: new Date(Date.now()),
-      })
-      .send("logout successfull");
+    res.clearCookie('token', tokenOption).send("logout successfull");
   } catch (error) {
     res.status(404).send(error.message);
   }
