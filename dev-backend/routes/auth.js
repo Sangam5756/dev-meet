@@ -91,8 +91,11 @@ authRouter.get("/logout", (req, res) => {
       secure: true, // Set true if using HTTPS
       sameSite: "None",
     };
-
-    res.clearCookie('token', tokenOption).send("logout successfull");
+    const token = "";
+    // storing token inside the cookies
+    res
+      .cookie("token", token, tokenOption)
+      .send("logout successfull");
   } catch (error) {
     res.status(404).send(error.message);
   }
