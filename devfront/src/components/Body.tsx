@@ -28,7 +28,7 @@ const Body = () => {
     if (!loading && !user?._id) {
       navigate("/login");
     }
-  }, [loading, user, navigate]); // Re-run when loading or user changes
+  }, [loading, user]); // Re-run when loading or user changes
 
   return (
     <div>

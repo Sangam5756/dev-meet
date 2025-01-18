@@ -10,7 +10,7 @@ import { RootState } from "../store/store";
 import { toast } from "react-toastify";
 
 const Navbar = () => {
-  const user = useSelector((state: RootState) => state.user);
+  const user = useSelector((state: RootState) => state?.user);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -62,9 +62,7 @@ const Navbar = () => {
               >
                 <div className="w-10 rounded-full">
                   {/* @ts-ignore */}
-                  <img
-                    alt="Tailwind CSS Navbar component"
-                    src={user?.photoUrl}
+                  <img alt="Tailwind CSS Navbar component"src={user?.photoUrl}
                   />
                 </div>
               </div>
