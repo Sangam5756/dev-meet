@@ -7,9 +7,7 @@ import { useEffect, useState } from "react";
 import { RootState } from "../store/store";
 
 const Body = () => {
-  const user = useSelector((state: RootState) => state?.user);
   const fetchUser = useFetchUser();
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(false); // State for loading
 
   useEffect(() => {
