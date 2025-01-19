@@ -1,15 +1,15 @@
 import axios from "axios";
-import { useEffect} from "react";
+import { useEffect } from "react";
 import { BackendUrl } from "../constants/Api";
 import { useDispatch, useSelector } from "react-redux";
 import { addConnections } from "../store/connectionsSlice";
 import { RootState } from "../store/store";
-
+import { Link } from "react-router-dom";
 
 const Connections = () => {
   const dispatch = useDispatch();
   const connections = useSelector((state: RootState) => state?.connections);
-  
+
   const fetchConnections = async () => {
     if (connections.length !== 0) return;
     try {
@@ -27,7 +27,6 @@ const Connections = () => {
     fetchConnections();
   }, []);
 
-  
   if (!connections) return;
   if (connections.length === 0) {
     return (
@@ -37,9 +36,7 @@ const Connections = () => {
     );
   }
 
-  
   return (
-    
     <div className="flex items-center flex-col my-10 px-5 lg:px-0">
       <h1 className="text-3xl font-bold">Connections</h1>
 
@@ -65,6 +62,10 @@ const Connections = () => {
               </p>
               <p className="">{user?.about}</p>
             </div>
+            <Link to={"/chat/" + user?._id} className="btn btn-primary">
+              {" "}
+              chat
+            </Link>
           </div>
         );
       })}

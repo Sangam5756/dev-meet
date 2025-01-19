@@ -22,13 +22,13 @@ const Body = () => {
     fetchUserData();
   }, []);
 
-  useEffect(() => {
-    // Redirect to login page if user is not authenticated
-    // @ts-ignore
-    if (!loading && !user?._id) {
-      navigate("/login");
-    }
-  }, [loading, user]); // Re-run when loading or user changes
+  // useEffect(() => {
+  //   // Redirect to login page if user is not authenticated
+  //   // @ts-ignore
+  //   // if (!loading && !user?._id) {
+  //   //   navigate("/login");
+  //   // }
+  // }, [loading, user]); // Re-run when loading or user changes
 
   return (
     <div>

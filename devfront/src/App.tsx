@@ -9,10 +9,14 @@ import { ToastContainer } from "react-toastify";
 import Connections from "./components/Connections";
 import Requests from "./components/Requests";
 import SignUp from "./components/SignUp";
+import Chat from "./components/Chatpage";
 
 const App = () => {
+
+  
+  
   return (
-    <div>
+    <div data-theme="dark" className="w-full h-screen">
       <ToastContainer position="top-center" />
       <Provider store={appStore}>
         <BrowserRouter basename="/">
@@ -24,6 +28,7 @@ const App = () => {
               <Route path="/profile" element={<Profile />} />
               <Route path="/connections" element={<Connections />} />
               <Route path="/requests" element={<Requests />} />
+              <Route path="/chat/:targetUserId" element={<Chat />} />
             </Route>
           </Routes>
         </BrowserRouter>

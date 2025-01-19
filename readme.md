@@ -83,7 +83,7 @@
      - pm2 start npm -- start   // the scipt name is start
      - pm2 logs // allow us to see the logs of console like if any error we can see here.
      - pm2 flush npm  // it will clear log , npm is name of application
-     - pm2 list  // it will give list of all the application running
+     - pm2 li st  // it will give list of all the application running
      - pm2 stop npm  // stop -> npm is name of process
      - pm2 delete //delete -> npm is name of process 
      #### ADD
@@ -92,3 +92,9 @@
        - pm2 start npm --name "custom name" -- start
 
 
+
+## WEBSOCKET
+    - to integrate the socket into express
+    - first create the server using the http
+    - then instead of listening on app listen on created server
+    - configure cors for server
