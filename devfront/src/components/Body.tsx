@@ -1,10 +1,8 @@
 import Navbar from "./Navbar";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import Footer from "./Footer";
-import { useSelector } from "react-redux";
 import { useFetchUser } from "../hooks/useFetchUser";
 import { useEffect, useState } from "react";
-import { RootState } from "../store/store";
 
 const Body = () => {
   const fetchUser = useFetchUser();
