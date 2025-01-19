@@ -5,6 +5,7 @@ import { RootState } from "../store/store";
 import { createSocketConnection } from "../utils/socket";
 import axios from "axios";
 import { BackendUrl } from "../constants/Api";
+import MessageBox from "./MessageBox";
 
 const Chatpage = () => {
   const params = useParams();
@@ -56,7 +57,9 @@ const Chatpage = () => {
   }, [userId, targetUserId]);
 
   // handle send message
-  const sendMessage = () => {
+  // @ts-ignore
+  const sendMessage = (e) => {
+    e.preventDefault()
     const socket = createSocketConnection();
 
     socket.emit("sendMessage", {
@@ -70,40 +73,38 @@ const Chatpage = () => {
   };
 
   return (
-    <div className="w-3/4 mx-auto border border-gray-600 m-5 h-[70vh] flex flex-col">
-      <h1 className="p-5 border-b border-gray-600"> Chat</h1>
+    <div className=" mx-5   h-[80vh] flex flex-col">
+      {/* <h1 className="p-5 border-b border-gray-600"> Chat</h1> */}
 
-      <div className="flex-1  overflow-y-scroll p-5">
+      {/* <div className="flex-1  overflow-y-scroll p-5"> */}
+      <div className="w-full  flex flex-col     max-h-[90vh] overflow-y-auto">
         {messages?.map((msg: any, index) => {
           return (
-            <div
-              key={index}
-              // @ts-ignore
-              className={`chat ${user.firstName === msg.firstName ? "chat-end" : "chat-start"}`}
-            >
-              <div className="chat-header">
-                {msg?.firstName}
-                <time className="text-xs opacity-50">12:45</time>
-              </div>
-
-              <div className="chat-bubble">{msg?.text}</div>
-              <div className="chat-footer opacity-50">Delivered</div>
-            </div>
+            // @ts-ignore
+            <MessageBox key={index} user={user} message={msg} />
           );
         })}
       </div>
-      <div className="border-gray-600 p-5  border-t flex items-center gap-2">
-        <input
-          value={newMessage}
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setNewMessage(e.target.value)
-          }
-          className="flex-1 border-gray-600 text-white rounded p-2"
-        />
-        <button onClick={sendMessage} className="btn btn-primary">
-          send
-        </button>
-      </div>
+      {/* <div className="border-gray-600 p-5  border-t flex items-center gap-2"> */}
+      <form onSubmit={sendMessage}>
+        <div className="flex justify-center gap-2 items-center w-full mt-4">
+          <label className="text-xl" htmlFor="message"></label>
+          <textarea
+            type="text"
+            placeholder="Type here"
+            className=" textarea textarea-success outline-none border-none"
+            value={newMessage}
+            // @ts-ignore
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setNewMessage(e.target.value)
+            }
+          />
+          <button onClick={sendMessage} className="btn btn-primary">
+            send
+          </button>
+        </div>
+        </form>
+      {/* </div> */}
     </div>
   );
 };
