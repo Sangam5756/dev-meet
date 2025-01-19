@@ -3,7 +3,7 @@ import userModel from "../models/userSchema.js";
 
 export const authUser = async (req, res, next) => {
   try {
-    console.log(req.cookies)
+    // console.log(req.cookies)
     const cookies = req.cookies;
     const { token } = cookies;
 
