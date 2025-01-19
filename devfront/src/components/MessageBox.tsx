@@ -8,7 +8,7 @@ const MessageBox = ({ message, user }) => {
   }
   const username = getFirstLetter(message?.firstName);
   const theme = "light";
-
+// @ts-ignore
   const handleCopy = (text) => {
     navigator.clipboard.writeText(text).then(() => {
       alert("Message copied to clipboard!"); // Optional: Add a notification.
