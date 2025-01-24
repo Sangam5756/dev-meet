@@ -43,4 +43,45 @@ paymentRouter.post("/payment/create", async (req, res) => {
   }
 });
 
+paymentRouter.post("payment/webhook", async (req, res) => {
+  try {
+    const webhookBody = req.body;
+    const webhookSignature = req.get("X-Razorpay-Signature")
+
+    const isWebhooValid = validateWebhookSignature(JSON.stringify(webhookBody), webhookSignature, process.env.razorpay_webhookSecret);
+  console.log("webhook is valid", isWebhookValid);
+    console.log(webhookBody);
+    console.log("payment is captured");
+
+    if (!isWebhooValid) {
+      return res.status(400).json({ message: "Webhook signature is not valid" })
+    }
+
+    const paymentDetails = webhookBody.payload.payment.entity;
+    const payment = await Payment.findOne({ orderId: paymentDetails.order_id });
+    payment.status = paymentDetails.status
+    await payment.save(); 
+
+
+    // update my payment status in db
+    // update the users as premium
+    // return success response to razorpay
+    if (webhookBody.event == "payment.captured") {
+
+    }
+    if (webhookBody.event == "payment.failed") {
+
+    }
+
+    return res.status(200).json({
+      msg: "webhook  is received successfully"
+    })
+
+
+
+  } catch (error) {
+    console.log(error);
+  }
+
+})
 export default paymentRouter;
