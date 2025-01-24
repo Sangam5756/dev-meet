@@ -98,3 +98,9 @@
     - first create the server using the http
     - then instead of listening on app listen on created server
     - configure cors for server
+
+
+## payment
+ - razorpay registration and complete kyc
+ - create ui for premium page
+ - Creating API for Create order in backend

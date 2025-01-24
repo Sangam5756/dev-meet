@@ -10,6 +10,7 @@ import userRouter from "./routes/user.js";
 import { createServer } from "http";
 import { initializeSocket } from "./routes/socket.js";
 import chatRouter from "./routes/chat.js";
+import paymentRouter from "./routes/payment.js";
 configDotenv();
 
 const app = express();
@@ -29,7 +30,7 @@ app.use("/", profileRouter);
 app.use("/", requestRouter);
 app.use("/", userRouter);
 app.use("/", chatRouter);
-
+app.use("/",paymentRouter)
 // socket io server
 const server = new createServer(app);
 initializeSocket(server)
