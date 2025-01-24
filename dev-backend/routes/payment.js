@@ -147,11 +147,11 @@ paymentRouter.post("/payment/webhook", async (req, res) => {
       return res.status(400).json({ message: "Webhook signature is not valid" })
     }
 
-    const paymentDetails = webhookBody.payload.payment.entity;
-    const payment = await Payment.findOne({ orderId: paymentDetails.order_id });
-    payment.status = paymentDetails.status
-    await payment.save(); 
-   console.log(isWebhooValid);
+    // const paymentDetails = webhookBody.payload.payment.entity;
+    // const payment = await Payment.findOne({ orderId: paymentDetails.order_id });
+    // payment.status = paymentDetails.status
+    // await payment.save(); 
+   console.log("webhook is valid or not",isWebhooValid);
     console.log(webhookBody);
     console.log(paymentDetails);
 
@@ -172,6 +172,7 @@ paymentRouter.post("/payment/webhook", async (req, res) => {
 
 
   } catch (error) {
+    console.log(error);
 
   }
 
