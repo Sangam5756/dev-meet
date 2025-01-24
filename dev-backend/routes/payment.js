@@ -153,7 +153,7 @@ paymentRouter.post("/payment/webhook", async (req, res) => {
     // await payment.save(); 
    console.log("webhook is valid or not",isWebhooValid);
     console.log(webhookBody);
-    console.log(paymentDetails);
+    // console.log(paymentDetails);
 
     // update my payment status in db
     // update the users as premium
