@@ -151,17 +151,19 @@ paymentRouter.post("/payment/webhook", async (req, res) => {
     const payment = await Payment.findOne({ orderId: paymentDetails.order_id });
     payment.status = paymentDetails.status
     await payment.save(); 
-
+   console.log(isWebhooValid);
+    console.log(webhookBody);
+    console.log(paymentDetails);
 
     // update my payment status in db
     // update the users as premium
     // return success response to razorpay
-    if (webhookBody.event == "payment.captured") {
+    // if (webhookBody.event == "payment.captured") {
 
-    }
-    if (webhookBody.event == "payment.failed") {
+    // }
+    // if (webhookBody.event == "payment.failed") {
 
-    }
+    // }
 
     return res.status(200).json({
       msg: "webhook  is received successfully"
