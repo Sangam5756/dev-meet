@@ -101,6 +101,7 @@
 
 
 ## payment
- - razorpay registration and complete kyc
+  ![paymentStructure](https://github.com/user-attachments/assets/9f4f5913-9f76-4f54-9c75-fc0a69e1e7e8)
+- razorpay registration and complete kyc
  - create ui for premium page
  - Creating API for Create order in backend
