@@ -14,8 +14,6 @@ import Premium from "./components/Premium";
 
 const App = () => {
 
-  
-  
   return (
     <div data-theme="dark" className="w-full h-screen">
       <ToastContainer position="top-center" />
