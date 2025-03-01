@@ -15,7 +15,7 @@ import Premium from "./components/Premium";
 const App = () => {
 
   return (
-    <div data-theme="dark" className="w-full h-screen">
+    <div data-theme="dark" className="w-full max-h-screen min-h-screen">
       <ToastContainer position="top-center" />
       <Provider store={appStore}>
         <BrowserRouter basename="/">

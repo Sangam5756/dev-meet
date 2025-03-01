@@ -3,20 +3,33 @@ import { Outlet, useNavigate } from "react-router-dom";
 import Footer from "./Footer";
 import { useFetchUser } from "../hooks/useFetchUser";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/store";
+import { addUser } from "../store/userSlice";
 
 const Body = () => {
   const fetchUser = useFetchUser();
   const [loading, setLoading] = useState(false); // State for loading
   const user = useSelector((state: RootState) => state?.user);
-  console.log(user)
+  // console.log()
+  const dispatch  = useDispatch();
+  // @ts-ignorets-ignore
+    const  session = JSON.parse(sessionStorage.getItem("user"));
     const navigate = useNavigate();
   useEffect(() => {
+
+    if(session){  
+      dispatch(addUser(session));
+       
+    }
+
+    
     
     // Fetch user data when component mounts
     // @ts-ignore
-    if(user?._id)  navigate("/login");
+    if(user?._id)  navigate("/");
+    // @ts-ignore
+    if(!user?._id)  navigate("/login");
     const fetchUserData = async () => {
       await fetchUser();
       setLoading(false); // Set loading to false once the data is fetched

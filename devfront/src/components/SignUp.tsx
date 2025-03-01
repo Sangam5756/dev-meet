@@ -47,7 +47,7 @@ const SignUp = () => {
   };
 
   return (
-    <div className="flex justify-center my-10">
+    <div className="flex justify-center  my-10">
       <div className="card bg-base-300 w-96 shadow-xl flex justify-center">
         <div className="card-body">
           {/* form title */}
@@ -69,7 +69,7 @@ const SignUp = () => {
               />
             </label>
             {/* lastName input */}
-            <label className="form-control w-full max-w-xs my-2">
+            <label className="form-control w-full max-w-xs ">
               <div className="label">
                 <span className="label-text">Last Name:</span>
               </div>

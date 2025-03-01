@@ -42,6 +42,7 @@ const Login = () => {
       });
 
       dispatch(addUser(response.data.user));
+      sessionStorage.setItem("user", JSON.stringify(response.data.user));
       toast.success(response?.data?.message);
       return navigate("/");
     } catch (error:any) {

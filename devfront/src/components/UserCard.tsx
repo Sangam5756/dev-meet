@@ -30,7 +30,7 @@ const UserCard = ({ user,changeFeed }:UserCardProps) => {
     }
   };
   return (
-    <div className="card bg-base-300 w-96 shadow-xl">
+    <div className="card bg-base-300 w-88 shadow-xl">
       {/* image url */}
       <figure>
         <img
@@ -39,7 +39,7 @@ const UserCard = ({ user,changeFeed }:UserCardProps) => {
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToK4qEfbnd-RN82wdL2awn_PMviy_pelocqQ&s"
           }
           alt="avatar"
-          className="w-full h-96"
+          className="w-full h-32"
         />
       </figure>
       <div className="card-body">

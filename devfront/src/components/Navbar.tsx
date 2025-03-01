@@ -27,6 +27,7 @@ const Navbar = () => {
       dispatch(removeUser(null));
       dispatch(removeFeed());
       dispatch(removeConnections());
+      sessionStorage.removeItem("user");
       dispatch(removeRequests());
       toast.success(res?.data);
       navigate("/login");
