@@ -35,7 +35,11 @@ app.use("/",paymentRouter)
 const server = new createServer(app);
 initializeSocket(server)
 
-
+app.get("/",(req,res)=>{
+    res.status(200).json({
+      message:"Server is Running"
+    });
+});
 
 dbConnect()
   .then(() => {
